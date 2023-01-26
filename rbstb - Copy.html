@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Spider Web</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/108/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+</head>
+<body>
+    <div id="web-canvas"></div>
+    <script>
+        // Create a scene
+        const scene = new THREE.Scene();
+
+        // Create a camera
+        const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+
+        // Create a renderer
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("web-canvas") });
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+        // Create web line segments
+        const webLineGeometry = new THREE.Geometry();
+        const webLineMaterial = new THREE.LineBasicMaterial({color: 0x000000});
+        for (let i = 0; i < 8; i++) {
+            const line = new THREE.Line(webLineGeometry, webLineMaterial);
+            line.position.x = (Math.random() - 0.5) * 10;
+            line.position.
+y = (Math.random() - 0.5) * 10;
+line.position.z = (Math.random() - 0.5) * 10;
+scene.add(line);
+}
+    // Create spider
+    const spiderGeometry = new THREE.SphereGeometry( 0.5, 32, 32 );
+    const spiderMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+    const spider = new THREE.Mesh( spiderGeometry, spiderMaterial );
+    spider.position.set(0, 0, 0);
+    scene.add(spider);
+
+    // Render scene
+    camera.position.z = 5;
+    function render() {
+        requestAnimationFrame(render);
+        renderer.render(scene, camera);
+    }
+    render();
+</script>
+</body>
+</html>
